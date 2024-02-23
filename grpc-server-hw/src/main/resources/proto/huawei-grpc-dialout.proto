@@ -1,0 +1,13 @@
+syntax = "proto3";                          //proto版本定义为v3版本。
+//package huawei_dialout;                     //本包名称为huawei_dialout。
+option java_multiple_files = true;
+option java_package = "com.leichu.grpc.server.hw.help";
+
+service gRPCDataservice {                   //服务名称为gRPCDataservice。
+  rpc dataPublish(stream serviceArgs) returns(stream serviceArgs) {}; //方法为dataPublish，双向流，提供数据推送方法。入参是serviceArgs数据流。
+}
+message serviceArgs {                       //消息格式描述。
+  int64 ReqId = 1;                        //请求ID，GPB编码时编号为1。
+  bytes data = 2;                         //承载的数据，GPB编码时编号为2，由huawei-telemetry.proto解释。
+  string errors = 3;                      //产生错误时的描述信息，GPB编码时编号为3。
+}
